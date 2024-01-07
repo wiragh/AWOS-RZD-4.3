@@ -77,7 +77,7 @@ const Comparison = () => {
   return (
     <div className="card-2 mt-3">
       <h5>
-        <FaRocket className="me-2"/> Open Weather Data Sensor / Location in Indoneisa
+        <FaRocket className="me-2"/> Open Weather Data Sensor / Location in Bandung
       </h5>
       <Row className="mt-3">
       <Col xs={6} className="p-2">
