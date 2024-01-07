@@ -11,6 +11,7 @@ import {
   FaCompressAlt,
   FaRocket,
 } from "react-icons/fa";
+import { FaWind } from "react-icons/fa";
 
 
 // DATA CONTEXT IMPORT
@@ -51,15 +52,27 @@ const TodayCard = () => {
             </Stack>
           </Col>
           <Col className="border-side">
+            <Stack direction="vertical" gap={2}>
+              <p className="font-grey text-start">Phosporus</p>
+              <h3>{responseData["Phospor_DA"]}</h3>
+            </Stack>
+          </Col>
+          <Col className="border-side">
             <Stack direction="vertical mx-auto" gap={2}>
               <p className="font-grey text-start">Potassium</p>
               <h3>{responseData["Potasium_DA"]}</h3>
             </Stack>
           </Col>
-          <Col>
+          <Col className="border-side">
             <Stack direction="vertical mx-auto" gap={2}>
               <p className="font-grey text-start">Ph Soil</p>
               <h3>{responseData["PhSoil_DA"]}</h3>
+            </Stack>
+          </Col>
+          <Col xs={3}>
+            <Stack direction="vertical mx-auto" gap={2}>
+              <p className="font-grey text-start">Electrical Conductivity</p>
+              <h3>{responseData["ElectricalConduct_DA"]} µS/cm</h3>
             </Stack>
           </Col>
         </Row>
@@ -108,12 +121,12 @@ const TodayCard = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs={4} className="p-2">
+        <Col xs={3} className="p-2">
           <div className="card-darker">
             <Stack direction="vertical" gap={4}>
               <div className="font-title-grey">Wind Wave Direction</div>
-              <Stack direction="horizontal" gap={5}>
-                <div className="icon-forecast pe-1">
+              <Stack direction="horizontal" gap={4}>
+                <div className="icon-forecast pe-0">
                   <FaRegCompass />
                 </div>
                 <h2 className="mt-3">{responseData["WindWaveDirection_DW"]}</h2>
@@ -121,7 +134,20 @@ const TodayCard = () => {
             </Stack>
           </div>
         </Col>
-        <Col xs={4} className="p-2">
+        <Col xs={3} className="p-2">
+          <div className="card-darker">
+            <Stack direction="vertical" gap={4}>
+              <div className="font-title-grey">Wind Speed</div>
+              <Stack direction="horizontal" gap={3}>
+                <div className="icon-forecast pe-0">
+                  <FaWind />
+                </div>
+                <h3 className="mt-3 ps-0">{responseData["WindSpeed_DW"]} m/s</h3>
+              </Stack>
+            </Stack>
+          </div>
+        </Col>
+        <Col xs={3} className="p-2">
           <div className="card-darker">
             <Stack direction="vertical" gap={4}>
               <div className="font-title-grey">Rainfall</div>
@@ -129,17 +155,17 @@ const TodayCard = () => {
                 <div className="icon-forecast pe-0">
                   <FaCloudShowersHeavy />
                 </div>
-                <h3 className="mt-3 ps-0">{responseData["Rainfall_DW"]} MM/Day</h3>
+                <h5 className="mt-3 ps-0">{responseData["Rainfall_DW"]} MM/Day</h5>
               </Stack>
             </Stack>
           </div>
         </Col>
-        <Col xs={4} className="p-2">
+        <Col xs={3} className="p-2">
           <div className="card-darker">
             <Stack direction="vertical" gap={4}>
               <div className="font-title-grey">UV Index</div>
-              <Stack direction="horizontal" gap={4}>
-                <div className="icon-forecast pe-5">
+              <Stack direction="horizontal" gap={3}>
+                <div className="icon-forecast pe-0">
                   <FaRegSun />
                 </div>
                 <h2 className="mt-3 ps-5">

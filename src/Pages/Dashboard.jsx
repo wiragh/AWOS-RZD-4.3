@@ -62,21 +62,24 @@ const Dashboard = () => {
             <LocationCard node="gateway" />
             <h5 className="mt-4 mb-4">Lokasi Node Sensor</h5>
             <LocationCard node="aws" />
-            <DelayCard />
           </Col>
           <Col xs={9} className="ps-4">
             <TodayCard />
             <Comparison />
+            <DelayCard />
           </Col>
         </Row>
         <Row className="line-border mt-5">
           <Col xs={6} className="mt-3">
             <h6><IoStatsChart /> Agriculture's Statistic</h6>
-            <Chart context="agriculture" />
+            <Chart context="Kondisi Tanah" />
+            <Chart context="Kandungan Nutrisi Tanah" /> 
           </Col>
           <Col xs={6} className="mt-3">
             <h6><IoStatsChart /> Weather's Statistic</h6>
-            <Chart context="weather" />
+            {/* <Chart context="weather" /> */}
+            <Chart context="Parameter Dasar" />
+            <Chart context="Parameter Pencahayaan dan Radiasi" />
           </Col>
         </Row>
       </section>

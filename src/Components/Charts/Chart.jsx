@@ -45,33 +45,35 @@ const Chart = (props) => {
 
       console.log(item);
 
-      if (props.context === "preview") {
-        return {
-          date: formattedDate,
-          Temperature: item.Temp_DW,
-          Rainfall: item.Rainfall_DW,
-          Humidity: item.Humidity_DW,
-        };
-      } else if (props.context === "agriculture"){
+      if (props.context === "Kondisi Tanah"){
         return {
           date: formattedDate,
           SoilMoisture: item.SoilMoisture_DA,
           SoilTemp: item.SoilTemp_DA,
+          PhSoil: item.PhSoil_DA,
+          ElectricalConduct: item.ElectricalConduct_DA,
+        }
+      } else if (props.context === "Kandungan Nutrisi Tanah"){
+        return {
+          date: formattedDate,
           Nitrogen: item.Nitrogen_DA,
           Phospor: item.Phospor_DA,
-          PhSoil: item.PhSoil_DA,
           Potasium: item.Potasium_DA,
         }
-      } else if (props.context === "weather"){
+      } else if (props.context === "Parameter Dasar"){
         return {
           date: formattedDate,
           Temp: item.Temp_DW,
           Humidity: item.Humidity_DW,
+          AirPressure: item.AirPressure_DW,
+          Rainfall: item.Rainfall_DW
+        }
+      } else if (props.context === "Parameter Pencahayaan dan Radiasi"){
+        return {
+          date: formattedDate,
           LightIntensity: item.LightIntensity_DW,
           UVLight: item.UVLightIntensity_DW,
-          AirPressure: item.AirPressure_DW,
           WindSpeed: item.WindSpeed_DW,
-          Rainfall: item.Rainfall_DW
         }
       }
     });
@@ -101,38 +103,21 @@ const Chart = (props) => {
         text: "Nilai",
       },
     },
-  };
+    title: {
+      text: props.context, // Judul grafik
+      align: 'center',
+      style: {
+        fontSize: '16px',
+        fontWeight: 'bold',
+        fontFamily: 'Arial, sans-serif',
+        color:'#fff',
+      }, 
+    }
+  }
 
   let chartSeries;
 
-  if (props.context === "preview"){
-    chartSeries = [
-      {
-        name: "Rainfall",
-        data: chartData.map((data) => ({
-          x: data.date,
-          y: data.Rainfall,
-        })),
-        strokeWidth: 0.1,
-      },
-      {
-        name: "Temperature",
-        data: chartData.map((data) => ({
-          x: data.date,
-          y: data.Temperature,
-        })),
-        strokeWidth: 0.1,
-      },
-      {
-        name: "Humidity",
-        data: chartData.map((data) => ({
-          x: data.date,
-          y: data.Humidity,
-        })),
-        strokeWidth: 0.1,
-      },
-    ]
-  } else if (props.context === "agriculture"){
+  if (props.context === "Kondisi Tanah"){
     chartSeries = [
       {
         name: "Soil Moisture",
@@ -146,10 +131,29 @@ const Chart = (props) => {
         name: "Soil Temperature",
         data: chartData.map((data) => ({
           x: data.date,
-          y: data.Soil_Temp,
+          y: data.SoilTemp,
         })),
         strokeWidth: 0.1,
       },
+      {
+        name: "Ph Soil",
+        data: chartData.map((data) => ({
+          x: data.date,
+          y: data.PhSoil,
+        })),
+        strokeWidth: 0.1,
+      },
+      {
+        name: "Electrical Conductivity",
+        data: chartData.map((data) => ({
+          x: data.date,
+          y: data.ElectricalConduct,
+        })),
+        strokeWidth: 0.1,
+      },
+    ]
+  } else if (props.context === "Kandungan Nutrisi Tanah"){
+    chartSeries = [
       {
         name: "Nitrogen",
         data: chartData.map((data) => ({
@@ -159,7 +163,7 @@ const Chart = (props) => {
         strokeWidth: 0.1,
       },
       {
-        name: "Phospor",
+        name: "Phosporus",
         data: chartData.map((data) => ({
           x: data.date,
           y: data.Phospor,
@@ -167,15 +171,7 @@ const Chart = (props) => {
         strokeWidth: 0.1,
       },
       {
-        name: "PH Soil",
-        data: chartData.map((data) => ({
-          x: data.date,
-          y: data.PhSoil,
-        })),
-        strokeWidth: 0.1,
-      },
-      {
-        name: "Potasium",
+        name: "Potassium",
         data: chartData.map((data) => ({
           x: data.date,
           y: data.Potasium,
@@ -183,7 +179,7 @@ const Chart = (props) => {
         strokeWidth: 0.1,
       },
     ]
-  } else if (props.context === "weather"){
+  } else if (props.context === "Parameter Dasar"){
     chartSeries = [
       {
         name: "Temperature",
@@ -202,34 +198,10 @@ const Chart = (props) => {
         strokeWidth: 0.1,
       },
       {
-        name: "Light Intensity",
-        data: chartData.map((data) => ({
-          x: data.date,
-          y: data.LightIntensity,
-        })),
-        strokeWidth: 0.1,
-      },
-      {
-        name: "UV Light Intensity",
-        data: chartData.map((data) => ({
-          x: data.date,
-          y: data.UVLight,
-        })),
-        strokeWidth: 0.1,
-      },
-      {
         name: "Air Pressure",
         data: chartData.map((data) => ({
           x: data.date,
           y: data.AirPressure,
-        })),
-        strokeWidth: 0.1,
-      },
-      {
-        name: "Wind Speed",
-        data: chartData.map((data) => ({
-          x: data.date,
-          y: data.WindSpeed,
         })),
         strokeWidth: 0.1,
       },
@@ -242,7 +214,34 @@ const Chart = (props) => {
         strokeWidth: 0.1,
       },
     ]
-  }
+  } else if (props.context === "Parameter Pencahayaan dan Radiasi"){
+    chartSeries = [
+      {
+        name: "Wind Speed",
+        data: chartData.map((data) => ({
+          x: data.date,
+          y: data.WindSpeed,
+        })),
+        strokeWidth: 0.1,
+      },
+      {
+        name: "UV Index",
+        data: chartData.map((data) => ({
+          x: data.date,
+          y: data.UVLight,
+        })),
+        strokeWidth: 0.1,
+      },
+      {
+        name: "Light Intensity",
+        data: chartData.map((data) => ({
+          x: data.date,
+          y: data.LightIntensity,
+        })),
+        strokeWidth: 0.1,
+      },
+    ]
+  } 
 
   return (
     <>
