@@ -22,7 +22,7 @@ const TodayCard = () => {
 
   const dataLux = responseData.LightIntensity_DW;
   const intValue = parseInt(dataLux, 10);
-  const dataLuxReady = intValue / 10;
+  const dataLuxReady = intValue ;
 
 
   return (
@@ -100,7 +100,7 @@ const TodayCard = () => {
                   <FaRegLightbulb />
                 </div>
                 <h2 className="mt-3">
-                  {dataLuxReady} Lux
+                  {dataLux} Lux
                 </h2>
               </Stack>
             </Stack>

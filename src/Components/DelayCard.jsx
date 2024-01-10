@@ -14,7 +14,7 @@ const DelayCard = () => {
       <div className="card pt-3 pb-2 mt-3">
         <Stack direction="vertical" gap={1}>
           <p className="font-title-grey">Waktu Sensor</p>
-          <h6 className="">{responseData['CapturedAt']}</h6>
+          <h6 className="">{responseData['CapturedAt'].substring(0, 25)}</h6>
         </Stack>
       </div>
       </Col>
@@ -23,7 +23,7 @@ const DelayCard = () => {
       <div className="card pt-3 pb-2 mt-3">
         <Stack direction="vertical" gap={1}>
           <p className="font-title-grey">Waktu Server</p>
-          <h6 className="">{responseData['SavedAt']}</h6>
+          <h6 className="">{responseData['SavedAt'].substring(0, 25)}</h6>
         </Stack>
       </div>
       </Col>
