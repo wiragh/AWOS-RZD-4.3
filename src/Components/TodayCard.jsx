@@ -36,7 +36,7 @@ const TodayCard = () => {
       <div className="card-darker mb-2 mt-3">
         <Row>
           <div className="mb-3">Agriculture Node</div>
-          <Col className="border-side">
+          <Col xs={1} className="border-side">
             <Stack direction="vertical" gap={2}>
               <p className="font-grey text-start">Soil Moisture</p>
               <h3>{responseData["SoilMoisture_DA"]} %RH</h3>
@@ -132,7 +132,7 @@ const TodayCard = () => {
                 <div className="icon-forecast pe-0">
                   <FaRegCompass />
                 </div>
-                <h2 className="mt-3">{responseData["WindWaveDirection_DW"]}</h2>
+                <h5 className="mt-3">{responseData["WindWaveDirection_DW"].toUpperCase()}</h5>
               </Stack>
             </Stack>
           </div>

@@ -64,9 +64,9 @@ const Dashboard = () => {
             <LocationCard node="aws" />
           </Col>
           <Col xs={9} className="ps-4">
+          <DelayCard />
             <TodayCard />
             <Comparison />
-            <DelayCard />
           </Col>
         </Row>
         <Row className="line-border mt-5">
