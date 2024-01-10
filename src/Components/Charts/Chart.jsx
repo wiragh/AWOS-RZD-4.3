@@ -43,8 +43,6 @@ const Chart = (props) => {
         .toString()
         .padStart(2, "0")}`;
 
-      console.log(item);
-
       if (props.context === "Kondisi Tanah"){
         return {
           date: formattedDate,

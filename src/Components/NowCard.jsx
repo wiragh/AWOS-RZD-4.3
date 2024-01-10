@@ -13,7 +13,7 @@ import { getCityName } from "../../api/request";
 
 const NowCard = () => {
   const [ locationData, setLocationData ] = useState([]);
-
+  const [ dataDay, setDataDay ] = useState("Unknown");
   const { responseData } = useData();
 
   const latitude = parseFloat(responseData["Latitude_AWS"]);
@@ -27,6 +27,19 @@ const NowCard = () => {
   };
 
   useEffect(() => {
+      // CHECK TIME
+    const timestamp = responseData["SavedAt"].substring(17,19);
+    const hour = parseInt(timestamp)
+    if (hour >= 0 && hour < 12) {
+      setDataDay("Morning");
+    } else if (hour >= 12 && hour < 17) {
+      setDataDay("Afternoon");
+    } else if (hour >= 17 && hour < 20) {
+      setDataDay("Evening");
+    } else {
+      setDataDay("Night");
+    };
+
     fetchCityName(latitude, longitude);
     const interval = setInterval(() => {
       fetchCityName(latitude, longitude);
@@ -41,7 +54,7 @@ const NowCard = () => {
       <Stack direction="horizontal" gap={3}>
         <Stack direction="vertical" gap={1}>
           <div>
-            <h5>Now</h5>
+            <h5>This {dataDay},</h5>
           </div>
           <div>
             <h1>{responseData["Temp_DW"]}°C</h1>

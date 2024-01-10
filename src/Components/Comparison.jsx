@@ -88,7 +88,7 @@ const Comparison = () => {
                 <div className="icon-forecast pe-2">
                   <WiThermometer />
                 </div>
-                <h2 className="mt-3 ps-0">{sensorData["feelslike_c"]} °C</h2>
+                <h2 className="mt-3 ps-0">{sensorData["temp_c"]} °C</h2>
               </Stack>
             </Stack>
           </div>
