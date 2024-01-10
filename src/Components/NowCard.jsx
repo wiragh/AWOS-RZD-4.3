@@ -11,9 +11,17 @@ import { useData } from "../DataContext";
 // REQUEST IMPORT
 import { getCityName } from "../../api/request";
 
+import morning from "../assets/morning.png";
+
+import contrast from "../assets/contrast.png";
+
+import moon from "../assets/moon.png";
+
 const NowCard = () => {
   const [ locationData, setLocationData ] = useState([]);
   const [ dataDay, setDataDay ] = useState("Unknown");
+  let iconDay;
+
   const { responseData } = useData();
 
   const latitude = parseFloat(responseData["Latitude_AWS"]);
@@ -32,12 +40,16 @@ const NowCard = () => {
     const hour = parseInt(timestamp)
     if (hour >= 0 && hour < 12) {
       setDataDay("Morning");
+      iconDay = morning;
     } else if (hour >= 12 && hour < 17) {
       setDataDay("Afternoon");
+      iconDay = contrast;
     } else if (hour >= 17 && hour < 20) {
       setDataDay("Evening");
+      iconDay = moon;
     } else {
       setDataDay("Night");
+      iconDay = moon;
     };
 
     fetchCityName(latitude, longitude);
@@ -65,7 +77,10 @@ const NowCard = () => {
         </Stack>
         <Stack direction="vertical" gap={1}>
           <div className="icons-cloud">
-            <FaCloud />
+            <img src={dataDay === "Morning" ? morning :
+          dataDay === "Afternoon" ? contrast :
+          dataDay === "Evening" ? moon :
+          dataDay === "Night" ? moon : morning} alt=""/>
           </div>
         </Stack>
       </Stack>

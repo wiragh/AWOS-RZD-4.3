@@ -94,6 +94,9 @@
 
 .icons-cloud{
     font-size: 65px !important;
+    img{
+        width: 70px;
+    }
 }
 
 .icon-forecast{
