@@ -24,6 +24,9 @@ const TodayCard = () => {
   const intValue = parseInt(dataLux, 10);
   const dataLuxReady = intValue ;
 
+  const dataAirPressure = responseData.AirPressure_DW;
+  const intValueAirPressure = parseInt(dataAirPressure, 10);
+  const dataAirPressureReady = intValueAirPressure ;
 
   return (
     <div className="card">
@@ -114,7 +117,7 @@ const TodayCard = () => {
                 <div className="icon-forecast">
                   <FaCompressAlt />
                 </div>
-                <h2 className="mt-3">{responseData["AirPressure_DW"]} hPa</h2>
+                <h2 className="mt-3">{dataAirPressureReady} Pa</h2>
               </Stack>
             </Stack>
           </div>
