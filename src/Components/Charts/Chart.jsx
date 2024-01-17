@@ -1,30 +1,44 @@
 // LIBRARY IMPORT
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
+import "react-loading-skeleton/dist/skeleton.css";
+
 
 // REQUEST IMPORT
 import { getDataSensorFull } from "../../../api/request";
+
 
 const Chart = (props) => {
   const [dataSensor, setDataSensor] = useState([]);
 
   const [chartData, setChartData] = useState([]);
 
+  const [heightValue, setHeightValue] = useState(275);
+
+  const [isDataReady, setIsDataReady] = useState(false);
+
   useEffect(() => {
     const fetchDataSensor = async () => {
       const response = await getDataSensorFull();
-      setDataSensor(response.data);
+      const currentDate = new Date();
+      const tenDaysAgo = new Date(currentDate);
+      tenDaysAgo.setDate(tenDaysAgo.getDate() - 1); // DATA 7 HARI TERAKHIR
+
+      const filteredData = response.data.filter(
+        (item) => new Date(item.SavedAt) >= tenDaysAgo
+      );
+
+      setDataSensor(filteredData);
     };
 
     fetchDataSensor();
   }, []);
 
+  
   useEffect(() => {
     const processedChartData = dataSensor.map((item) => {
-      // Membuat objek tanggal dari string
       const dateObject = new Date(item.CapturedAt);
 
-      // Menggunakan metode dari objek tanggal untuk mendapatkan komponen tanggal yang diinginkan
       const formattedDate = `${dateObject.getFullYear()}-${(
         dateObject.getMonth() + 1
       )
@@ -43,41 +57,51 @@ const Chart = (props) => {
         .toString()
         .padStart(2, "0")}`;
 
-      if (props.context === "Kondisi Tanah"){
+      if (props.context === "Kondisi Tanah") {
         return {
           date: formattedDate,
           SoilMoisture: item.SoilMoisture_DA,
           SoilTemp: item.SoilTemp_DA,
           PhSoil: item.PhSoil_DA,
           ElectricalConduct: item.ElectricalConduct_DA,
-        }
-      } else if (props.context === "Kandungan Nutrisi Tanah"){
+        };
+      } else if (props.context === "Kandungan Nutrisi Tanah") {
         return {
           date: formattedDate,
           Nitrogen: item.Nitrogen_DA,
           Phospor: item.Phospor_DA,
           Potasium: item.Potasium_DA,
-        }
-      } else if (props.context === "Parameter Dasar"){
+        };
+      } else if (props.context === "Parameter Dasar") {
         return {
           date: formattedDate,
           Temp: item.Temp_DW,
           Humidity: item.Humidity_DW,
           AirPressure: item.AirPressure_DW,
-          Rainfall: item.Rainfall_DW
-        }
-      } else if (props.context === "Parameter Pencahayaan dan Radiasi"){
+          Rainfall: item.Rainfall_DW,
+        };
+      } else if (props.context === "Parameter Pencahayaan dan Radiasi") {
         return {
           date: formattedDate,
           LightIntensity: item.LightIntensity_DW,
           UVLight: item.UVLightIntensity_DW,
           WindSpeed: item.WindSpeed_DW,
-        }
+        };
       }
     });
 
     setChartData(processedChartData);
+    setIsDataReady(true);
   }, [dataSensor]);
+
+  useEffect(() => {
+    if (isDataReady) {
+      const chart = document.querySelector("#chart1");
+      if (chart) {
+        chart.updateSeries(chartSeries);
+      }
+    }
+  }, [isDataReady]);
 
   const options = {
     chart: {
@@ -93,7 +117,7 @@ const Chart = (props) => {
     },
     xaxis: {
       type: "datetime",
-      min: new Date().getTime() - 1 * 24 * 60 * 60 * 1000,
+      min: new Date().getTime() - 1 * 1 * 60 * 60 * 1000, // DATA YANG DITAMPILKAN (BULAN * HARI * JAM * MENIT * MICROSECOND)
       max: new Date().getTime(),
     },
     yaxis: {
@@ -102,20 +126,32 @@ const Chart = (props) => {
       },
     },
     title: {
-      text: props.context, // Judul grafik
-      align: 'center',
+      text: props.context,
+      align: "center",
       style: {
-        fontSize: '16px',
-        fontWeight: 'bold',
-        fontFamily: 'Arial, sans-serif',
-        color:'#fff',
-      }, 
-    }
-  }
+        fontSize: "16px",
+        fontWeight: "bold",
+        fontFamily: "Arial, sans-serif",
+        color: "#fff",
+      },
+    },
+    noData: {
+      text: "Loading...",
+      align: "center",
+      verticalAlign: "middle",
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        color: "#FFF",
+        fontSize: "18px",
+        fontFamily: "Arial, sans-serif",
+      },
+    },
+  };
 
   let chartSeries;
 
-  if (props.context === "Kondisi Tanah"){
+  if (props.context === "Kondisi Tanah") {
     chartSeries = [
       {
         name: "Soil Moisture",
@@ -149,8 +185,8 @@ const Chart = (props) => {
         })),
         strokeWidth: 0.1,
       },
-    ]
-  } else if (props.context === "Kandungan Nutrisi Tanah"){
+    ];
+  } else if (props.context === "Kandungan Nutrisi Tanah") {
     chartSeries = [
       {
         name: "Nitrogen",
@@ -176,8 +212,8 @@ const Chart = (props) => {
         })),
         strokeWidth: 0.1,
       },
-    ]
-  } else if (props.context === "Parameter Dasar"){
+    ];
+  } else if (props.context === "Parameter Dasar") {
     chartSeries = [
       {
         name: "Temperature",
@@ -211,8 +247,8 @@ const Chart = (props) => {
         })),
         strokeWidth: 0.1,
       },
-    ]
-  } else if (props.context === "Parameter Pencahayaan dan Radiasi"){
+    ];
+  } else if (props.context === "Parameter Pencahayaan dan Radiasi") {
     chartSeries = [
       {
         name: "Wind Speed",
@@ -238,8 +274,15 @@ const Chart = (props) => {
         })),
         strokeWidth: 0.1,
       },
-    ]
-  } 
+    ];
+  }
+  useEffect(() => {
+    if (props.type === "mobile") {
+      setHeightValue(300);
+    } else {
+      setHeightValue(275);
+    }
+  });
 
   return (
     <>
@@ -248,7 +291,7 @@ const Chart = (props) => {
           options={options}
           series={chartSeries}
           width="100%"
-          height={275}
+          height={heightValue}
         />
       </div>
     </>

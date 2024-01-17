@@ -3,6 +3,7 @@ import { DATA_SENSOR, ALL_DATA_SENSOR, DATA_SENSOR_EXT, DATA_CITY_NAME } from ".
 
 // LIBRARY IMPORT
 import axios from "axios";
+import { utils, writeFile } from "xlsx";
 
 export const getDataSensor = async() => {
     try {
@@ -25,6 +26,19 @@ export const getDataSensorFull = async() => {
         throw error;
     }
 }
+export const handleDownloadExcel = async() => {
+    try {
+        const response = await axios.get(ALL_DATA_SENSOR)
+        const ws = utils.json_to_sheet(response.data);
+        const wb = utils.book_new();
+        utils.book_append_sheet(wb, ws, "Sheet1");
+        return wb;
+    } catch (error) {
+        const message = error.response;
+        console.error("Error on request:", message);
+        throw error;
+    }
+  };
 
 export const getDataSensorExt = async() => {
     try {

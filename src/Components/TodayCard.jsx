@@ -42,7 +42,7 @@ const TodayCard = () => {
               <h3>{responseData["SoilMoisture_DA"]} %RH</h3>
             </Stack>
           </Col>
-          <Col className="border-side">
+          <Col xs={2} className="border-side">
             <Stack direction="vertical" gap={2}>
               <p className="font-grey text-start">Soil Temp</p>
               <h3>{responseData["SoilTemp_DA"]}°C</h3>
@@ -141,18 +141,18 @@ const TodayCard = () => {
           <div className="card-darker">
             <Stack direction="vertical" gap={4}>
               <div className="font-title-grey">Wind Speed</div>
-              <Stack direction="horizontal" gap={3}>
+              <Stack direction="horizontal" gap={1}>
                 <div className="icon-forecast pe-0">
                   <FaWind />
                 </div>
-                <h3 className="mt-3 ps-0">{responseData["WindSpeed_DW"]} m/s</h3>
+                <h4 className="mt-3 ps-0">{responseData["WindSpeed_DW"]} m/s</h4>
               </Stack>
             </Stack>
           </div>
         </Col>
         <Col xs={3} className="p-2">
           <div className="card-darker">
-            <Stack direction="vertical" gap={4}>
+            <Stack direction="vertical" gap={3}>
               <div className="font-title-grey">Rainfall</div>
               <Stack direction="horizontal" gap={3}>
                 <div className="icon-forecast pe-0">

@@ -14,7 +14,7 @@ import {
 import { WiThermometer } from "react-icons/wi";
 
 // REQUEST IMPORT
-import { getDataSensorExt } from "../../api/request";
+import { getDataSensorExt } from "../../../api/request";
 
 const Comparison = () => {
   const [sensorData, setSensorData] = useState([]);
@@ -72,65 +72,69 @@ const Comparison = () => {
         return data;
     }
   };
-  
-  
 
   return (
     <div className="card-2 mt-3">
       <h5>
-        <FaRocket className="me-2"/> Open Weather Data Sensor / Location in Bandung
+        <Stack direction="horizontal" gap={3}>
+          <FaRocket />
+          <Stack direction="vertical" gap={0}>
+            <h6 className="m-0">Open Weather Data Sensor</h6>
+            <h6>Location in Bandung</h6>
+          </Stack>
+        </Stack>
       </h5>
       <Row className="mt-3">
-      <Col xs={6} className="p-2">
+        <Col xs={12} className="p-2">
           <div className="card-darker">
-            <Stack direction="vertical" gap={4}>
-              <div className="font-title-grey">Temperature</div>
-              <Stack direction="horizontal" gap={4}>
-                <div className="icon-forecast pe-2">
-                  <WiThermometer />
-                </div>
-                <h2 className="mt-3 ps-0">{sensorData["temp_c"]} °C</h2>
+            <Stack direction="horizontal" gap={3}>
+              <div className="icon-forecast pe-0">
+                <WiThermometer />
+              </div>
+              <Stack direction="vertical">
+                <div className="font-grey text-start">Temperature</div>
+                <h2>{sensorData["temp_c"]} °C</h2>
               </Stack>
             </Stack>
           </div>
         </Col>
-        <Col xs={6} className="p-2">
+        <Col xs={12} className="p-2">
           <div className="card-darker">
-            <Stack direction="vertical" gap={4}>
-              <div className="font-title-grey">Humidity</div>
-              <Stack direction="horizontal" gap={3}>
-                <div className="icon-forecast pe-2">
-                  <FaTint />
-                </div>
-                <h2 className="mt-3 ps-0">{sensorData["humidity"]} %RH</h2>
+            <Stack direction="horizontal" gap={3}>
+              <div className="icon-forecast pe-0">
+                <FaTint />
+              </div>
+              <Stack direction="vertical">
+                <div className="font-grey text-start">Humidity</div>
+                <h2>{sensorData["humidity"]} %RH</h2>
               </Stack>
             </Stack>
           </div>
         </Col>
       </Row>
       <Row>
-        <Col xs={6} className="p-2">
+        <Col xs={12} className="p-2">
           <div className="card-darker">
-            <Stack direction="vertical" gap={4}>
-              <div className="font-title-grey">Wind Wave Direction</div>
-              <Stack direction="horizontal" gap={3}>
-                <div className="icon-forecast pe-3">
-                  <FaRegCompass />
-                </div>
-                <h2 className="mt-3">{getArahAngin(sensorData["wind_dir"])}</h2>
+            <Stack direction="horizontal" gap={3}>
+              <div className="icon-forecast pe-0">
+                <FaRegCompass />
+              </div>
+              <Stack direction="vertical">
+                <div className="font-grey text-start">Wind Wave Direction</div>
+                <h2>{getArahAngin(sensorData["wind_dir"])}</h2>
               </Stack>
             </Stack>
           </div>
         </Col>
-        <Col xs={6} className="p-2">
+        <Col xs={12} className="p-2">
           <div className="card-darker">
-            <Stack direction="vertical" gap={4}>
-              <div className="font-title-grey">Air Pressure</div>
-              <Stack direction="horizontal" gap={3}>
-                <div className="icon-forecast">
-                  <FaCompressAlt />
-                </div>
-                <h2 className="mt-3">{sensorData["pressure_mb"]} Pa</h2>
+          <Stack direction="horizontal" gap={3}>
+              <div className="icon-forecast pe-0">
+                <FaCompressAlt />
+              </div>
+              <Stack direction="vertical">
+                <div className="font-grey text-start">Air Pressure</div>
+                <h2>{sensorData["pressure_mb"]} Pa</h2>
               </Stack>
             </Stack>
           </div>
