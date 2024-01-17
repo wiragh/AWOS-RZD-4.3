@@ -112,12 +112,12 @@ const Comparison = () => {
         <Col xs={6} className="p-2">
           <div className="card-darker">
             <Stack direction="vertical" gap={4}>
-              <div className="font-title-grey">Wind Wave Direction</div>
-              <Stack direction="horizontal" gap={3}>
+              <div className="font-title-grey">UV Index</div>
+              <Stack direction="horizontal" gap={4}>
                 <div className="icon-forecast pe-3">
-                  <FaRegCompass />
+                  <FaRegSun />
                 </div>
-                <h2 className="mt-3">{getArahAngin(sensorData["wind_dir"])}</h2>
+                <h2 className="mt-3">{sensorData["uv"]}</h2>
               </Stack>
             </Stack>
           </div>
