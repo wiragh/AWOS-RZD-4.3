@@ -80,7 +80,7 @@ const NowCard = () => {
             <img src={dataDay === "Morning" ? morning :
           dataDay === "Afternoon" ? contrast :
           dataDay === "Evening" ? moon :
-          dataDay === "Night" ? moon : morning} alt=""/>
+          dataDay === "Night" ? moon : morning} alt="" width={100}/>
           </div>
         </Stack>
       </Stack>
